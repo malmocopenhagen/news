@@ -33,15 +33,15 @@
         <input type="text" name="location">
         <button type="submit">Change Location?</submit>
       </form></span></div>
-        <header><%=@location%> Daily</header>
+        <header><%= @location%> Daily</header>
         
     </div>
-<div class="container mt-12">
+<div class="container lg-12">
       <div class="subhead">Currently: <%=@curr_summ%> and <%=@curr_temp%>°F</div>
       </div>
 </div>
 
-<div class="container mt-12">
+<div class="container lg-12">
 <div class="content">
     <div class="collumns">
 <% i=0 %>
@@ -71,7 +71,7 @@
     <% j=0 %>
     <% for story in @articles[0..4] %>
     <div>
-      <h4><a href="<%=story["url"]%>"><%= j+1 %> <%=story["title"]%></a></h4>
+      <h4><a href="<%=story["url"]%>"><%= j+1 %>. <%=story["title"]%></a></h4>
       </div>
       <% j=j+1 %>
     <%end%>
