@@ -7,7 +7,7 @@
 
     <!-- Google Fonts -->
     <!-- Swap out "Roboto" for the font(s) you want to use -->
-    <link href="https://fonts.googleapis.com/css?family=UnifrakturMaguntia|News+Cycle&display=swap" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" crossorigin="anonymous">
@@ -22,70 +22,64 @@
     
     <!-- Your own CSS -->
     <link rel="stylesheet" href="styles.css">
-    <title>Weather</title>
+    <title>Newspaper Homepage</title>
   </head>
 
-  <div class="container mt-5">
-   <h1><%= @location %></h1>
-    <iframe
-     width="400"
-      height="300"
-       frameborder="0" style="border:0"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw
-         &q=<%= @lat %>, <%= @long %>&zoom=6" allowfullscreen>
-      </iframe>
-    </div> 
+<body>
 
-    <div class="container mt-5">
-      <h1><%=@curr_summ%>
-      </h1>
-      <h3>It is currently <%=@curr_temp%> degrees in <%=@location%></h3>
+<div class="head">
+    <div class="headerobjectswrapper">
+        <div class="weatherforcastbox"><span><form action="/news">
+        <input type="text" name="location">
+        <button type="submit">Change Location?</submit>
+      </form></span></div>
+        <header><%=@location%> Daily</header>
+        
     </div>
-
-    <div class="container mt-5">
-      <h1>Weather Forecast
-      </h1>
-    </div>
-
-    <div class="container mt-5">
-    <table width="100%"">
-    <th>Day</th>
-    <th>Outlook</th>
-    <th>Low</th>
-    <th>High</th>
-    <% i=0 %>
-    <% for day in @forecast_array %>
-    <div class="container mt-5">
-    <tr>
-      <td><%=Time.at(day["time"]).strftime("%a")%></td>
-      <td><%=day["summary"]%></td>
-      <td><%=day["temperatureLow"]%></td>
-      <td><%=day["temperatureHigh"]%></td>
-      </tr>
+<div class="container mt-12">
+      <div class="subhead">Currently: <%=@curr_summ%> and <%=@curr_temp%>°F</div>
       </div>
-      <% i=i+1 %>
+</div>
+
+<div class="container mt-12">
+<div class="content">
+    <div class="collumns">
+<% i=0 %>
+    <% for day in @forecast_array[0..4] %>
+        <div class="collumn">
+            <div class="head"><span class="headline hl3"><%=(Date.today + i + 1).strftime("%A")%></span>
+            <span class="headline hl10"><%=(Date.today + i + 1).strftime("%m/%d")%></span></div>
+            <span class="headline hl6"><%=day["temperatureHigh"]%>°F</span>
+            <span class="headline hl6"><%=day["summary"]%></span>
+            </div>
+                  <% i=i+1 %>
     <%end%>
-    </table>
     </div>
+</div>
+</div>
 
-    <div class="container mt-5">
-      <h1>Top Stories
-      </h1>
-    </div>
+      <div class="head">
+<div class="container mt-12">
+      <div class="subhead">Top Stories in <%=@cname%> </div>
+      </div>
+      </div>
 
-    <div class="container mt-5">
-    <table width="100%">
-    <th>Story</th>
+      <div class="container">
+        <div class="row">
+      <div class="container mt-6">
+       <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
     <% j=0 %>
-    <% for story in @articles %>
-    <div class="container mt-5">
-    <tr>
-      <td href="<%=story["url"]%>"><%=story["title"]%></td>
-      </tr>
+    <% for story in @articles[0..4] %>
+    <div>
+      <h4><a href="<%=story["url"]%>"><%= j+1 %> <%=story["title"]%></a></h4>
       </div>
       <% j=j+1 %>
     <%end%>
-    </table>
+    </div>
+    </div>
+    </div>
     </div>
 
+</body>
 </html>
+
